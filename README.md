@@ -30,7 +30,7 @@ sudo echo $(docker network inspect bridge | grep Gateway | grep -o -E '[0-9\.]+'
 Then you can install composer inside symfony (php container)
 
 ``
-docker-exec php bash
+docker-compose exec php bash
 ``
 
 ``
@@ -48,5 +48,5 @@ docker-exec php bash
 
 Run mysql
 ``
-docker-exec db mysql -uroot -proot 
+docker-exec db mysql -uroot -proot
 ``
