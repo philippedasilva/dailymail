@@ -48,5 +48,5 @@ docker-exec php bash
 
 Run mysql
 ``
-docker-exec db mysql -uroot -proot 
+docker-exec db mysql -uroot -proot -hdb
 ``
