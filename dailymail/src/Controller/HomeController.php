@@ -4,21 +4,21 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Helper\TrelloHelper;
 
 class HomeController extends Controller
 {
 
     /**
      * @Route("/", name="homepage")
+     * @param TrelloHelper $trelloHelper
      * @return Response
      */
-    public function home()
+    public function home(TrelloHelper $trelloHelper)
     {
-        $number = mt_rand(0, 100);
+        //$boards = $trelloHelper->getBoards();
 
-        return $this->render('home.html.twig', [
-            'number' => $number
-        ]);
+        return $this->render('home.html.twig');
 
     }
 }
