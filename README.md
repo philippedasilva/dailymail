@@ -37,7 +37,7 @@ docker-exec php bash
 composer install
 ``
 
-#Cheat sheet
+# Cheat sheet
 
 
 Run php bash
