@@ -24,7 +24,7 @@ docker-compose up
 
 Don't forget to add vagrant ip to your host
 ``
-sudo echo $(docker network inspect bridge | grep Gateway | grep -o -E '[0-9\.]+') "dailymail.vm" >> /etc/hosts
+sudo echo "0.0.0.0    dailymail.vm" >> /etc/hosts
 ``
 
 Then you can install composer inside symfony (php container)
