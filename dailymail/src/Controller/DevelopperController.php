@@ -20,7 +20,7 @@ class DevelopperController extends Controller
      */
     public function index(DevelopperRepository $developperRepository): Response
     {
-        return $this->render('developper/index.html.twig', ['developpers' => $developperRepository->findAll()]);
+        return $this->render('Developper/index.html.twig', ['developpers' => $developperRepository->findAll()]);
     }
 
     /**
@@ -40,7 +40,7 @@ class DevelopperController extends Controller
             return $this->redirectToRoute('developper_index');
         }
 
-        return $this->render('developper/new.html.twig', [
+        return $this->render('Developper/new.html.twig', [
             'developper' => $developper,
             'form' => $form->createView(),
         ]);
@@ -51,7 +51,7 @@ class DevelopperController extends Controller
      */
     public function show(Developper $developper): Response
     {
-        return $this->render('developper/show.html.twig', ['developper' => $developper]);
+        return $this->render('Developper/show.html.twig', ['developper' => $developper]);
     }
 
     /**
@@ -68,7 +68,7 @@ class DevelopperController extends Controller
             return $this->redirectToRoute('developper_edit', ['id' => $developper->getId()]);
         }
 
-        return $this->render('developper/edit.html.twig', [
+        return $this->render('Developper/edit.html.twig', [
             'developper' => $developper,
             'form' => $form->createView(),
         ]);
