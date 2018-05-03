@@ -3,13 +3,13 @@ parameters:
     # This allows you to run cache:warmup even if your
     # environment variables are not available yet.
     # You should not need to change this value.
-    env(DATABASE_URL): 'mysql://root:root@db:3306/dailymail'
+    env(DATABASE_URL): 'mysql://root:root@db/dailymail'
 
 doctrine:
     dbal:
         # configure these for your database server
         driver: 'pdo_mysql'
-        server_version: '5.7'
+        server_version: '8.1'
         charset: utf8mb4
         default_table_options:
             charset: utf8mb4
