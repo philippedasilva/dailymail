@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Helper\GoogleSheetHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,9 +15,11 @@ class HomeController extends Controller
      * @param TrelloHelper $trelloHelper
      * @return Response
      */
-    public function home(TrelloHelper $trelloHelper)
+    public function home(TrelloHelper $trelloHelper, GoogleSheetHelper $googleSheetHelper)
     {
         //$boards = $trelloHelper->getBoards();
+
+        $googleSheetHelper->test();
 
         return $this->render('home.html.twig');
 

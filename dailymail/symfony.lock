@@ -1,4 +1,7 @@
 {
+    "asimlqt/php-google-spreadsheet-client": {
+        "version": "v3.0.2"
+    },
     "cdaguerre/php-trello-api": {
         "version": "dev-master"
     },

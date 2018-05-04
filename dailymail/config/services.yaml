@@ -4,6 +4,7 @@ parameters:
     locale: 'en'
     trello.api_key: 'YOURTRELLOAPIKEY'
     trello.token: 'YOURTRELLOTOKEN'
+    google_sheet.token: 'WBtmaq7luGH2fr1P-AJ9MmD0'
 
 services:
     # default configuration for services in *this* file
@@ -30,6 +31,10 @@ services:
         arguments:
             $trelloApiKey: '%trello.api_key%'
             $trelloToken: '%trello.token%'
+
+    App\Helper\GoogleSheetHelper:
+        arguments:
+            $googleSheetToken: '%google_sheet.token%'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
