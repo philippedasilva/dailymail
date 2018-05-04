@@ -34,11 +34,6 @@ class Developper
     private $email;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Project", inversedBy="developpers")
-     */
-    private $project;
-
-    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Project", mappedBy="developpers")
      */
     private $projects;

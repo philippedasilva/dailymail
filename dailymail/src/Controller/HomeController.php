@@ -2,26 +2,14 @@
 namespace App\Controller;
 
 use App\Helper\GoogleSheetHelper;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
+use JavierEguiluz\Bundle\EasyAdminBundle\Controller\AdminController;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Helper\TrelloHelper;
 
-class HomeController extends Controller
+/**
+ * Class HomeController
+ * @package App\Controller
+ */
+class HomeController extends AdminController
 {
 
-    /**
-     * @Route("/", name="homepage")
-     * @param TrelloHelper $trelloHelper
-     * @return Response
-     */
-    public function home(TrelloHelper $trelloHelper, GoogleSheetHelper $googleSheetHelper)
-    {
-        //$boards = $trelloHelper->getBoards();
-
-        $googleSheetHelper->test();
-
-        return $this->render('home.html.twig');
-
-    }
 }
