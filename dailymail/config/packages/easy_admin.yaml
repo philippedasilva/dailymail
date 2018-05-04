@@ -1,0 +1,14 @@
+easy_admin:
+    site_name: 'Daily Mail'
+    design:
+        color_scheme: 'dark'
+        brand_color: '#ff8054'
+        menu:
+            - { label: 'developper', icon: users,  entity: Developper }
+            - { label: 'project' , icon: graduation-cap, entity: Project }
+    entities:
+        # List the entity class name you want to manage
+        Developper:
+            class: App\Entity\Developper
+        Project:
+            class: App\Entity\Project

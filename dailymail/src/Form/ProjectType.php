@@ -9,21 +9,5 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProjectType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder
-            ->add('name')
-            ->add('customer')
-            ->add('trelloKey')
-            ->add('googleKey')
-            ->add('developpers')
-        ;
-    }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => Project::class,
-        ]);
-    }
 }
