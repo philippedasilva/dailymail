@@ -9,19 +9,5 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DevelopperType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder
-            ->add('firstName')
-            ->add('lastName')
-            ->add('email')
-        ;
-    }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => Developper::class,
-        ]);
-    }
 }
