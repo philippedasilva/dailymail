@@ -12,3 +12,10 @@ easy_admin:
             class: App\Entity\Developper
         Project:
             class: App\Entity\Project
+            form:
+                fields:
+                    - { property: 'name', type: 'text'}
+                    - { property: 'customer', type: 'text'}
+                    - { property: 'googleSheetConfiguration', type: 'collection', type_options: { entry_type: 'App\Form\GoogleSheetConfigurationType', by_reference: true }}
+                    - { property: 'trelloConfiguration', type: 'collection', type_options: { entry_type: 'App\Form\TrelloConfigurationType', by_reference: true }}
+                    - { property: 'developpers'}
