@@ -1,0 +1,24 @@
+<h2>Trello Test on board <b>{{ boardName }}</b></h2>
+
+{% for id,list in data %}
+    <h3>> {{ list.name }} (id: {{ id }})</h3>
+    <h4>Points : {{ list.points }}</h4>
+
+    <table>
+        <tr>
+            <th>Card Id</th>
+            <th>Card Name</th>
+            <th>Card Point</th>
+            <th>Card Desc</th>
+        </tr>
+
+        {% for id,card in list.cards %}
+            <tr>
+                <td>{{ id }}</td>
+                <td>{{ card.name[:50] }}</td>
+                <td>{{ card.points }}</td>
+                <td>{{ card.description[:50] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endfor %}

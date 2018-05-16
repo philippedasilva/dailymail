@@ -28,9 +28,9 @@ services:
         tags: ['controller.service_arguments']
 
     App\Helper\TrelloHelper:
-        arguments:
-            $trelloApiKey: '%trello.api_key%'
-            $trelloToken: '%trello.token%'
+#        arguments:
+#            $trelloApiKey: '%trello.api_key%'
+#            $trelloToken: '%trello.token%'
 
     App\Helper\GoogleSheetHelper:
         arguments:

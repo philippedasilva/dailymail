@@ -11,5 +11,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class HomeController extends AdminController
 {
+    public function index()
+    {
 
+    }
 }

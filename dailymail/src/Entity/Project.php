@@ -29,14 +29,9 @@ class Project
     private $customer;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\OneToOne(targetEntity="App\Entity\ProjectConfiguration", cascade="all")
      */
-    private $trelloKey;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $googleKey;
+    private $configuration;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Developper", inversedBy="projects")
@@ -77,30 +72,6 @@ class Project
         return $this;
     }
 
-    public function getTrelloKey(): ?string
-    {
-        return $this->trelloKey;
-    }
-
-    public function setTrelloKey(?string $trelloKey): self
-    {
-        $this->trelloKey = $trelloKey;
-
-        return $this;
-    }
-
-    public function getGoogleKey(): ?string
-    {
-        return $this->googleKey;
-    }
-
-    public function setGoogleKey(?string $googleKey): self
-    {
-        $this->googleKey = $googleKey;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Developper[]
      */
@@ -122,6 +93,100 @@ class Project
     {
         if ($this->developpers->contains($developper)) {
             $this->developpers->removeElement($developper);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getConfiguration()
+    {
+        return $this->configuration;
+    }
+
+    /**
+     * @param mixed $configuration
+     *
+     * @return Project
+     */
+    public function setConfiguration($configuration)
+    {
+        $this->configuration = $configuration;
+
+        return $this;
+    }
+
+    public function getGoogleSheetConfiguration()
+    {
+        if (!$this->getConfiguration() || !$this->getConfiguration()->getGoogleConfiguration()) {
+            return null;
+        }
+
+        return [
+            0 => $this->getConfiguration()->getGoogleConfiguration()->getArray()
+        ];
+    }
+
+    public function setGoogleSheetConfiguration($googleSheetConfiguration)
+    {
+        if (!$this->configuration) {
+            $this->configuration = new ProjectConfiguration();
+        }
+
+        if ($googleSheetConfiguration) {
+            //Take first only (one configuration only)
+            $googleSheetConfiguration = reset($googleSheetConfiguration);
+
+            $currentGoogleConfiguration = $this->configuration->getGoogleConfiguration();
+
+            if (!$currentGoogleConfiguration) {
+                $currentGoogleConfiguration = new GoogleSheetConfiguration();
+            }
+
+            $currentGoogleConfiguration = $currentGoogleConfiguration->set($googleSheetConfiguration);
+            $this->configuration->setGoogleConfiguration($currentGoogleConfiguration);
+            $this->configuration->setProject($this);
+        } else {
+            $this->configuration->setGoogleConfiguration(null);
+        }
+
+        return $this;
+    }
+
+    public function getTrelloConfiguration()
+    {
+        if (!$this->getConfiguration() || !$this->getConfiguration()->getTrelloConfiguration()) {
+            return null;
+        }
+
+        return [
+            0 => $this->getConfiguration()->getTrelloConfiguration()->getArray()
+        ];
+    }
+
+    public function setTrelloConfiguration($trelloConfiguration)
+    {
+        if (!$this->configuration) {
+            $this->configuration = new ProjectConfiguration();
+        }
+
+        if ($trelloConfiguration) {
+            //Take first only (one configuration only)
+            $trelloConfiguration = reset($trelloConfiguration);
+
+            $currentTrelloConfiguration = $this->configuration->getTrelloConfiguration();
+
+            if (!$currentTrelloConfiguration) {
+                $currentTrelloConfiguration = new TrelloConfiguration();
+            }
+
+            $currentTrelloConfiguration = $currentTrelloConfiguration->set($trelloConfiguration);
+            $this->configuration->setTrelloConfiguration($currentTrelloConfiguration);
+            $this->configuration->setProject($this);
+        } else {
+            $this->configuration->setTrelloConfiguration(null);
         }
 
         return $this;
