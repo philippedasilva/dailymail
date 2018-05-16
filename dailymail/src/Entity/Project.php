@@ -148,6 +148,8 @@ class Project
             $currentGoogleConfiguration = $currentGoogleConfiguration->set($googleSheetConfiguration);
             $this->configuration->setGoogleConfiguration($currentGoogleConfiguration);
             $this->configuration->setProject($this);
+        } else {
+            $this->configuration->setGoogleConfiguration(null);
         }
 
         return $this;
@@ -183,6 +185,8 @@ class Project
             $currentTrelloConfiguration = $currentTrelloConfiguration->set($trelloConfiguration);
             $this->configuration->setTrelloConfiguration($currentTrelloConfiguration);
             $this->configuration->setProject($this);
+        } else {
+            $this->configuration->setTrelloConfiguration(null);
         }
 
         return $this;

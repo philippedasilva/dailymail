@@ -2,7 +2,9 @@
 
 namespace App\Helper;
 
+use App\Trello\Model\Board;
 use Trello\Client;
+use Trello\Model\Lane;
 
 class TrelloHelper {
 
@@ -11,83 +13,64 @@ class TrelloHelper {
      */
     const POINTS_REGEX = '#^.*?\([^\d]*(\d+)[^\d]*\).*$#';
 
-    /**
-     * @var string
-     */
-    protected $trelloApiKey;
+    /** @var Client  */
+    private $client;
 
     /**
-     * @var string;
-     */
-    protected $trelloToken;
-
-    /**
-     * TrelloHelper constructor.
      * @param $trelloApiKey
      * @param $trelloToken
      */
-    public function __construct($trelloApiKey, $trelloToken)
+    public function authenticate($trelloApiKey, $trelloToken)
     {
-        $this->trelloApiKey = $trelloApiKey;
-        $this->trelloToken = $trelloToken;
+        $this->client = new Client($trelloApiKey);
+        $this->client->setAccessToken($trelloToken);
     }
 
-    /**
-     * @param $apiKey
-     * @return Client
-     */
-    public function authenticate()
+    public function getBoard($boardId)
     {
-        $client = new Client();
-        $client->authenticate($this->trelloApiKey, $this->trelloToken, Client::AUTH_URL_CLIENT_ID);
-
-        return $client;
+        return $this->client->getBoard($boardId);
     }
 
-    /**
-     * @param $apiKey
-     */
-    public function getBoards() {
-        $client = $this->authenticate();
+    public function getCardsFromBoard($boardId)
+    {
+        $board = $this->getBoard($boardId);
 
-        return $client->api('member')->boards()->all();
+        return $board->getCards();
     }
 
-    /**
-     * @param $boardId
-     * @return \Trello\Api\Cardlist
-     */
-    public function getBoardLists($boardId) {
-        $client = $this->authenticate();
+    public function getCard($cardId, $boardId)
+    {
+        $board = $this->getBoard($boardId);
 
-        return $client->api('board')->lists()->all($boardId);
+        return $board->getCard($cardId);
     }
 
-    /**
-     * @param $listId
-     * @return \Trello\Api\Cardlist
-     */
-    public function getCardsFromList($listId) {
-        $client = $this->authenticate();
+    public function getPointsFromBoard(\Trello\Model\Board $board)
+    {
+        $pointsData = [];
 
-        return $client->api('lists')->cards()->all($listId);
-    }
+        /** @var Lane $list */
+        foreach ($board->getLists() as $list) {
+            $listPoints = 0;
 
-    public function getPointsFromList($listId) {
-        $cards = $this->getCardsFromList($listId);
+            foreach ($list->getCards() as $card) {
+                $data = $card->toArray();
+                $name = $data['name'];
+                $point = $this->getPointsFromTitle($name);
 
-        $points = 0;
-        foreach ($cards as $card) {
-            $points += $this->getPointsFromTitle($card['name']);
+                $listPoints += $point;
+            }
+
+            $pointsData[$list->getId()] = $listPoints;
         }
 
-        return $points;
+        return $pointsData;
     }
 
-    protected function getPointsFromTitle($title) {
+    public function getPointsFromTitle($title)
+    {
         preg_match(self::POINTS_REGEX, $title, $matches);
 
         return $matches && is_array($matches) ? (int) $matches[1] : 0;
     }
-
 }
